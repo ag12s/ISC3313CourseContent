@@ -1,0 +1,4 @@
+\babel@toc {english}{}\relax 
+\beamer@sectionintoc {1}{Warm Up Activity}{2}{0}{1}
+\beamer@sectionintoc {2}{Arrays}{4}{0}{2}
+\beamer@sectionintoc {3}{Dynamic allocation with pointers}{15}{0}{3}

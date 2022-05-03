@@ -1,0 +1,116 @@
+\documentclass{if-beamer}
+
+% --------------------------------------------------- %
+%                  Presentation info	              %
+% --------------------------------------------------- %
+\title[Lecture 26]{Differentiation}
+\subtitle{Richardson Extrapolation}
+\author{Ashley Gannon}
+\date{Fall 2020}
+\logo{
+\includegraphics[scale=0.08]{figures/FSULogo.png}
+}
+\subject{Presentation subject}
+
+% --------------------------------------------------- %
+%                    Title + Schedule                 %
+% --------------------------------------------------- %
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+% --------------------------------------------------- %
+%                      Presentation                   %
+% --------------------------------------------------- %
+\section{Richardson Extrapolation}
+
+\begin{frame}
+	\frametitle{Richardson Extrapolation Revisited}
+	
+	So far, we've seen that we can increase the accuracy of our derivative approximation by decreasing the step size $h$.\\\vspace{1cm}
+	
+	We could also improve these estimates by using higher order taylor series to form our schemes\\\vspace{1cm}
+	
+	We're going to use Richardson Extrapolation. Like we did for integration, this method combines two derivative estimates to compute a third, more accurate approximation.
+	
+\end{frame}
+
+
+\begin{frame}
+	\frametitle{Richardson Extrapolation}
+	Recall from the unit on integration
+	$$I = \frac{4}{3}I(h_2)-\frac{1}{3}I(h_1)$$
+	where $I(h_1)$ and $I(h_2)$ are the integral estimates for step sizes $h_1$ and $h_2$. \\\vspace{1cm}
+	We can write a similar expression for derivatives
+	$$ D = \frac{4}{3}D(h_2)-\frac{1}{3}D(h_1) $$
+	where $D(h_1)$ and $D(h_2)$ are the derivative estimates for step sizes $h_1$ and $h_2$.
+	\begin{itemize}
+		\item For Forward or Backward difference approximations with $\mathcal{O}(h)$, the application of this formula will yield a new derivative estimate of $\mathcal{O}(h^2)$
+		\item For Centered difference approximations with $\mathcal{O}(h^2)$, the application of this formula will yield a new derivative estimate of $\mathcal{O}(h^4)$
+	\end{itemize}
+	
+\end{frame}
+
+\begin{frame}
+	\frametitle{Richardson Extrapolation - Forward Difference}
+	Use forward difference approximations to estimate the first derivative of
+	$$f(x) = -0.1x^4-0.15x^3-0.5x^2-0.25x+1.2 $$
+	at $x=0.5$, using a step size $h = 0.25$. Note that the derivative of this function is
+	$$f'(x) = -0.4x^3-0.45x^2-x-0.25, \qquad f'(0.5) = -0.9125$$
+	\\\vspace{5pt}
+	Starting again with the forward difference scheme.\\\vspace{5pt}
+	We have
+	when $h=0.5$,
+	$$f'(0.5) \approx \frac{0.2-0.925}{0.5} = -1.45$$
+	The percent relative error is $58.9\%$.
+	When $h = 0.25$,
+	$$f'(0.5) \approx \frac{0.63632813-0.925}{0.5} \approx -1.155 $$
+	The percent relative error is $26.5\%$.
+\end{frame}
+
+\begin{frame}
+	\frametitle{Richardson Extrapolation - Forward Difference}
+	Plugging these values into out Richardson Extrapolation scheme
+	$$D = \frac{4}{3}D(h_2)-\frac{1}{3}D(h_1) $$
+	We have
+	$$D = \frac{4}{3}(-1.155)-\frac{1}{3}(-1.45) = -1.05667$$
+	Which has a percent relative error of $15.8\%$, which is close to the error from the centered difference approximation.
+\end{frame}
+
+\begin{frame}
+	\frametitle{Richardson Extrapolation - Centered Difference}
+	Use a centered difference approximation to estimate the first derivative of
+	$$f(x) = -0.1x^4-0.15x^3-0.5x^2-0.25x+1.2 $$
+	at $x=0.5$. Note that the derivative of this function is
+	$$f'(x) = -0.4x^3-0.45x^2-x-0.25, \qquad f'(0.5) = -0.9125$$
+	\\\vspace{5pt}
+	When $h=0.5$, applying the centered difference scheme we have
+	$$f'(0.5) \approx \frac{0.2-1.2}{1} = -1 $$
+	The percent relative error is $9.6\%$.
+	When $h=0.25$, applying the centered difference scheme we have
+	$$f'(0.5) \approx \frac{0.63632813-1.10351563}{0.5} = -0.934$$
+	The percent relative error is $2.4\%$
+\end{frame}
+
+\begin{frame}
+	\frametitle{Richardson Extrapolation - Centered Difference}
+	Plugging these values into out Richardson Extrapolation scheme
+	$$D = \frac{4}{3}D(h_2)-\frac{1}{3}D(h_1) $$
+	We have
+	$$D = \frac{4}{3}(-0.934)-\frac{1}{3}(-1) = -0.9125$$
+	which for the present case is exact.
+	\begin{itemize}
+		\item Recall the Richardson extrapolation is equivalent to fitting a high-order polynomial through data, in this case it's 4th order so it fits our 4th order polynomial $f(x)$ exactly.
+	\end{itemize}
+\end{frame}
+
+\section{Wrapping Up}
+\begin{frame}
+	\frametitle{Differentiation wrapping up}
+	This section covered one-step methods for solving ordinary differential equations (ODEs).\\\vspace{1cm} 
+	
+	If you continue taking courses in Scientific Computing, you will apply these methods and some of the other methods we've covered in this course to solve ODEs. 
+\end{frame}
+
+\end{document}

@@ -1,0 +1,142 @@
+\documentclass[11pt]{article}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{tabu}
+\usepackage{graphicx}
+%\usepackage[bw]{mcode}
+\usepackage[margin=.6in]{geometry}
+\usepackage{tikz}
+\usepackage{float}
+\usepackage{textcomp}
+\usepackage{multicol}
+\addtolength{\topmargin}{.5in}
+\usepackage{fancyhdr}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt plus 1pt}
+\setlength{\headheight}{20pt}
+\renewcommand{\headrulewidth}{0pt}
+\setlength{\headheight}{30.0pt}
+\newcommand\question[2]{\vspace{.25in}\hrule\textbf{#1: #2}\vspace{.5em}\hrule\vspace{.10in}}
+\renewcommand\part[1]{\vspace{.10in}\textbf{(#1)}}
+\newcommand\enter{\vspace{.50in}}
+\newcommand\algorithm{\vspace{.10in}\textbf{Algorithm:}}
+\newcommand\correctness{\vspace{.10in}\textbf{Correctness: }}
+\newcommand\runtime{\vspace{.10in}\textbf{Running time: }}
+\pagestyle{fancyplain}
+
+\begin{document}\raggedright
+\newcommand\Page{\page  / \lastPage}
+\newcommand\page{1}
+\newcommand\qN[2]{\Large {#1} \small{#2} \normalsize}
+
+% info
+\newcommand\dueDate{\today}
+\newcommand\hwnum{2}
+\newcommand\ExNum{}
+
+\newcommand\lastPage{3}
+
+% set info
+\lhead{\large Homework \hwnum }
+\rhead{\rightHead}
+\chead{\LARGE{Programming in C++}}
+\newcommand\rightHead{\large Due Sep 15, 2021}
+
+%Section B==============Put your answers to the questions below here=======================
+%\includegraphics[width = 4in]{Graph2}
+%tabular with tabu package
+%\begin{lstlisting}
+%\end{lstlisting}
+\question{1}{Compiled versus interpreted languages (10 pts)}
+In your own words, please summarize the major similarities and differences
+between compiled and interpreted programming languages, and provide at least
+three examples (programming languages) of each. \\[4cm]
+
+\question{2}{Boolean operators (10 pts)}
+Below are five separate lines of \texttt{C++} code. Each of them evaluates to a
+boolean logical (\textit{true} or \textit{false}). Please write whether the expression will
+evaluate to \textit{true} or \textit{false}:
+\begin{figure}[H]
+    \center
+    \begin{tikzpicture}
+        \node[right] at (0,0) {};
+        \node[right] at (-16,0) {\texttt{!false}:};
+        \node[right] at (-16,-1) {\texttt{true || false}:};
+        \node[right] at (-16,-2) {\texttt{true \&\& false}:};
+        \node[right] at (-16,-3) {\texttt{(true || false) \&\& false}:};
+        \node[right] at (-16,-4) {\texttt{(10 == 11 ) \&\& (true || false) \&\& true}:};
+    \end{tikzpicture}
+\end{figure}
+
+\newpage
+\question{3}{Input / output (30 pts)}
+Please write a \texttt{C++} program which performs the following:
+\begin{enumerate}
+    \item asks the user to input two values (of type \texttt{double}), one at a
+        time
+    \item computes the product of the two numbers
+    \item outputs the product to the screen, with at least 6 digits of
+        precision
+\end{enumerate}
+HINT: Use the \texttt{cin} and \texttt{cout} commands. We did not do an example in lecture. You must use what you've learned in class and apply it to this new package. If you get stuck, please contact myself or Liam. \\
+\vspace{8pt} 
+The program should compile and execute without errors. This program
+should be stored in a file called \texttt{mult.cpp} and submitted along with the PDF of your assignment solutions in a compressed folder. ALL CODES MUST BE WELL COMMENTED. If your code is not well commented, you will receive at most 50\% of the points for this problem.
+\vspace{1cm}
+\question{5}{A randomized algorithm to approximate $\pi$ (20 pts)}
+Complete the class activity from Lecture 5. Assume you are given a domain with $x, y
+\in \left[0,1\right]$. Generate a random pair of coordinates within this domain,
+and determine if they fall within a circle with radius $r = 0.5$ centered at
+$(0.5,0.5)$. Count the number of times that the point falls within the circle,
+and compute $\pi$ as
+\begin{equation*}
+    \hat{\pi} = 4 \frac{N_{hit}}{N_{tot}}
+\end{equation*}
+where $\hat{\pi}$ is an approximation of $\pi$, $N_{hit}$ is the number of points that lie inside the circle, and
+$N_{tot}$ is the number of random coordinate pairs drawn, total. Please fill in
+the following table by reporting your approximation to $\pi$ for varying values
+of $N_{tot}$:
+\vspace{0.5cm}
+\begin{table}[H]
+    \center
+    \begin{tabular}{|l|l|}
+    \hline
+        $N_{tot}$ & \quad \text{ } $\hat{\pi}$ \\ \hline
+    $10^2$    & \quad \quad \quad \quad \quad \\ \hline
+    $10^{3}$  &             \\ \hline
+    $10^{4}$  &             \\ \hline
+    $10^{5}$  &				\\ \hline
+    $10^{6}$  &				\\ \hline
+    \end{tabular}
+\end{table}
+What do you notice?
+
+
+\newpage
+\question{6}{Stopping criteria in approximating $\pi$ (30 pts)}
+Copy the file \texttt{computepi.cpp} into a new file called
+\texttt{user\_computepi.cpp}. Redesign the program so that instead of stopping
+after a prescribed number of iterations, the program exits once the relative
+absolute error in computing $\pi$ has diminished to a value, $\varepsilon$,
+\textbf{specified by the user}. In other words, there the for loop is not bounded by $N_{tot}$
+(HINT: use a \texttt{while} loop instead of a \texttt{for} loop). The absolute relative error can be calculated as
+\begin{equation*}
+    E = \frac{|\pi - \hat{\pi}|}{\pi},
+\end{equation*}
+The iterations stop when
+\begin{equation*}
+    E < \varepsilon.
+\end{equation*}
+The program should ask the user for a stopping tolerance (HINT cin). Run the program with $\varepsilon =  10^{-2}$,
+$10^{-3}$, and $10^{-4}$ \textbf{5 times each}. Report the \textbf{average} total number of iterations required Use the command \texttt{\#define} \\
+\begin{center}
+    \texttt{\#define MYPI 3.141592653589793238}
+\end{center}
+to define the exact value of $\pi$. \\[1cm]
+\vspace{5pt}
+The program should compile and execute without errors. This program
+should be stored in a file called \texttt{user\_computepi.cpp} and submitted along with the PDF of your assignment solutions in a compressed folder. ALL CODES MUST BE WELL COMMENTED. If your code is not well commented, you will receive at most 50\% of the points for this problem.
+
+\question{Submission}{}
+Please include all files and PDF of your assignment solutions in a compressed folder (i.e. zip).
+
+\end{document}

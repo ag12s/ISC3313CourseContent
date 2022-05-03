@@ -1,0 +1,114 @@
+\documentclass{if-beamer}
+
+% --------------------------------------------------- %
+%                  Presentation info	              %
+% --------------------------------------------------- %
+\title[Lecture 12]{Lecture 12}
+\subtitle{Root Finding Methods: Newton-Raphson method and the Secant methods}
+\author{Instructor: Ashley Gannon}
+\date{ISC 3313 Fall 2021}
+\logo{
+\includegraphics[scale=0.08]{figures/FSULogo.png}
+}
+\subject{Presentation subject}
+
+% --------------------------------------------------- %
+%                    Title + Schedule                 %
+% --------------------------------------------------- %
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+% --------------------------------------------------- %
+%                      Presentation                   %
+% --------------------------------------------------- %
+\section{Finishing up the Newton-Raphson method}
+\begin{frame}
+\frametitle{Pseudocode example}
+\texttt{//Input: a guess for x\_0, \textbf{x}}\\
+\texttt{//Output: \textbf{void}, print the root to the screen} \\
+\vspace{7pt}
+\texttt{//declare/define variables for the Newton-Raphson method:}\\
+\texttt{\qquad //tolerance, error, Maxiter, iter, and x\_new}\\
+\vspace{7pt}
+\texttt{loop while the number of iterations is less than the iteration cap, iter<Maxiter, \textbf{and} the function value isn't close to 0, abs(f(x))>tol}\\
+\vspace{4pt}
+\texttt{\qquad find the new value of x, x\_new, using the Newton-Raphson formula}\\
+\vspace{4pt}
+\texttt{\qquad update the counter, iter++}\\
+\vspace{4pt}
+\texttt{\qquad compute the error, abs(x\_new-x)}\\
+\vspace{4pt}
+\texttt{\qquad if the error <tol }\\
+\texttt{\qquad \qquad break the loop}\\
+\texttt{\qquad else} \\
+\texttt{\qquad \qquad set x = new value of x for loop} \\
+\vspace{4pt}
+\texttt{print the root value to the screen}
+\end{frame}
+
+\begin{frame}
+\frametitle{Let's code it!}
+
+Take the next 20 minutes and try to write the Newton-Raphson method, \texttt{NewtonRaphson.cpp}. Recall that the Newton raphson formula is 
+$$x_{i+1} = x_i - \frac{f(x_i)}{f'(x_i)}$$
+If you finish writing it early, apply it to the function $f(m)$ from last lecture with an initial guess of 140.
+$$f(m) = \sqrt{\frac{gm}{c_d}}\tanh\left(\sqrt{\frac{gc_d}{m}}t\right) -v(t) $$
+with the derivative
+$$f'(m) = \frac{1}{2}\sqrt{\frac{g}{mc_d}}\tanh\left(\sqrt{\frac{gc_d}{m}}t\right) - \frac{gt}{2m}\left(1-\tanh^2\left(\sqrt{\frac{gc_d}{m}}t\right)\right) $$ 
+\\\vspace{7pt}
+Post your code to the discussion board \textbf{Newton Raphson method code}. Do NOT post screen shots of error messages or of your code. Copy and paste the text from your code into the discussion board.
+\end{frame}
+
+\begin{frame}
+\frametitle{Newton-Raphson Method}
+A potential problem in implementing the Newton-Raphson method is
+the evaluation of the derivative. Although this is not inconvenient for polynomials and many other functions, there are certain functions whose derivatives may be difficult or inconvenient to evaluate. For these cases, the derivative can be approximated by a backward finite divided difference:
+$$ f'(x_i) \approx \frac{f(x_{i-1})-f(x_i)}{x_{i-1}-x_i}$$
+\end{frame}
+
+\section{Secant Methods}
+
+\begin{frame}
+\frametitle{Secant method}
+If we take the approximation for the derivative
+$$ f'(x_i) \approx \frac{f(x_{i-1})-f(x_i)}{x_{i-1}-x_i}$$
+and substitute it into our Newton-Raphson formula
+$$x_{i+1} = x_i - \frac{f(x_i)}{f'(x_i)}$$
+we end up with 
+$$x_{i+1} = x_i - \frac{f(x_i)\left(x_{i-1}-x_i\right)}{f(x_{i-1})-f(x_i)} $$
+Equation is the formula for the \textit{secant method}. Notice that the approach requires two initial estimates of $x$. However, because $f(x)$ is not required to change signs between the estimates, it is not classified as a bracketing method.
+\end{frame}
+
+\begin{frame}	
+\frametitle{Modified Secant method}
+Rather than using two arbitrary values to estimate the derivative, an alternative approach involves a perturbation of the independent variable to estimate $f'(x)$ by letting $x_{i-1} = x_i + \delta$
+$$f'(x) \approx \frac{f(x_i + \delta)-f(x_i)}{\delta}$$
+If we substitute this into our Newton-Raphson formula we end up with
+$$x_{i+1} = x_i - \frac{\delta f(x_i)}{f(x_{i}+\delta)-f(x_i)} $$	
+We call this the \textit{modified secant method}. It provides a nice means to attain the efficiency of the Newton-Raphson Method without having to compute derivatives.
+\end{frame}
+
+\section{Convergence}
+\begin{frame}
+\frametitle{Convergence}
+convergence is the idea that if we apply enough iterations, we compute the root accurately
+\begin{itemize}
+	\item it may never be exact, due to round-off error
+	\item sometimes the method doesn't converge 
+	\item sometimes convergence is slow
+\end{itemize}
+For the methods that we've seen, they are known to have the following
+theoretical rates of convergence (for certain problems):
+\begin{itemize}
+	\item Bisection method, $\alpha = 1$
+	\item Secant method, $\alpha = 1.618$
+	\item Newton's method, $\alpha = 2$
+\end{itemize}
+\end{frame}
+
+
+
+
+\end{document}

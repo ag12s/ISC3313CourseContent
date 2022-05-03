@@ -1,0 +1,609 @@
+\documentclass{if-beamer}
+
+% --------------------------------------------------- %
+%                  Presentation info	              %
+% --------------------------------------------------- %
+\title[Lecture 22]{Lecture 22}
+\subtitle{Differentiation: Forward, Backward, and Centered Difference Schemes}
+\author{Ashley Gannon}
+\date{ISC3313 Fall 2021}
+\logo{
+\includegraphics[scale=0.08]{figures/FSULogo.png}
+}
+\subject{Presentation subject}
+
+% --------------------------------------------------- %
+%                    Title + Schedule                 %
+% --------------------------------------------------- %
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+% --------------------------------------------------- %
+%                      Presentation                   %
+% --------------------------------------------------- %
+\section{Deriving the Forward and Backward Difference Schemes}
+
+\begin{frame}[t]
+\frametitle{Taylor Series}
+
+	If we expand the Taylor series forward, we have that 
+	\begin{itemize}
+		\item 	The zero-order Taylor-series approximation is
+		$$f(x_{i+1}) \cong f(x_i) $$
+
+	\end{itemize}	
+\end{frame}
+
+
+\begin{frame}[t]
+\frametitle{Taylor Series}
+
+If we expand the Taylor series forward, we have that 
+\begin{itemize}
+	\item 	The zero-order Taylor-series approximation is
+	$$f(x_{i+1}) \cong f(x_i) $$
+	\item The first-order Taylor-series approximation is
+	$$f(x_{i+1}) \cong f(x_i) +\frac{h}{1!}f'(x_i) $$
+\end{itemize}	
+\end{frame}
+
+
+\begin{frame}[t]
+\frametitle{Taylor Series}
+
+If we expand the Taylor series forward, we have that 
+\begin{itemize}
+	\item 	The zero-order Taylor-series approximation is
+	$$f(x_{i+1}) \cong f(x_i) $$
+	\item The first-order Taylor-series approximation is
+	$$f(x_{i+1}) \cong f(x_i) +\frac{h}{1!}f'(x_i) $$
+	\item The second-order Taylor series approximation is 
+	$$f(x_{i+1}) \cong f(x_i) +\frac{h}{1!}f'(x_i) + \frac{h^2}{2!}f''(x_i)$$
+\end{itemize}	
+\end{frame}
+
+
+\begin{frame}[t]
+\frametitle{Taylor Series}
+
+If we expand the Taylor series forward, we have that 
+\begin{itemize}
+	\item 	The zero-order Taylor-series approximation is
+	$$f(x_{i+1}) \cong f(x_i) $$
+	\item The first-order Taylor-series approximation is
+	$$f(x_{i+1}) \cong f(x_i) +\frac{h}{1!}f'(x_i) $$
+	\item The second-order Taylor series approximation is 
+	$$f(x_{i+1}) \cong f(x_i) +\frac{h}{1!}f'(x_i) + \frac{h^2}{2!}f''(x_i)$$
+	\item If we continue this trend, the $n^{th}$-order Taylor series approximate can be written as
+	$$f(x_{i+1}) \cong f(x_i) + \frac{h}{1!}f'(x_i) + \frac{h^2}{2!}f''(x_i)+\frac{h^3}{3!}f^{(3)}(x_i)+...+\frac{h^n}{n!}f^{(n)}(x_i)$$
+\end{itemize}	
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}[t]
+\frametitle{Approximating Derivatives - Forward finite difference}
+Taylor series can be used to approximate derivatives. If we wish to approximate the first derivative, we rearrange the first-order Taylor series approximation
+$$f(x_{i+1}) \cong f(x_i)+ \frac{h}{1!}f'(x_i),$$
+to solve for the derivative, $f'(x_i)$
+$$f'(x_i) = \frac{f(x_{i+1})-f(x_i)}{h} $$
+\end{frame}
+
+\begin{frame}[t]
+\frametitle{Approximating Derivatives - Forward finite difference}
+Taylor series can be used to approximate derivatives. If we wish to approximate the first derivative, we rearrange the first-order Taylor series approximation
+$$f(x_{i+1}) \cong f(x_i)+ \frac{h}{1!}f'(x_i),$$
+to solve for the derivative, $f'(x_i)$
+$$f'(x_i) = \frac{f(x_{i+1})-f(x_i)}{h} $$
+If we have equispaced data, we can think of $x_{i+1}$ as being the x located distance $h$ away from $x_i$. We can rewrite out formula as
+$$f'(x) = \frac{f(x+h)-f(x)}{h}  $$
+
+\end{frame}
+
+\begin{frame}[t]
+\frametitle{Approximating Derivatives - Forward finite difference}
+Taylor series can be used to approximate derivatives. If we wish to approximate the first derivative, we rearrange the first-order Taylor series approximation
+$$f(x_{i+1}) \cong f(x_i)+ \frac{h}{1!}f'(x_i),$$
+to solve for the derivative, $f'(x_i)$
+$$f'(x_i) = \frac{f(x_{i+1})-f(x_i)}{h} $$
+If we have equispaced data, we can think of $x_{i+1}$ as being the x located distance $h$ away from $x_i$. We can rewrite out formula as
+$$f'(x) = \frac{f(x+h)-f(x)}{h}  $$
+\\\vspace{10pt}
+This is the \textit{forward difference} scheme and it's approximation is $\mathcal{O}(h)$ accurate.
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}[t]
+\frametitle{Taylor Series}
+
+If we expand the Taylor series backward, we have that 
+\begin{itemize}
+	\item 	The zero-order Taylor-series approximation is
+	$$f(x_{i-1}) \cong f(x_i) $$
+\end{itemize}	
+
+\end{frame}
+
+\begin{frame}[t]
+\frametitle{Taylor Series}
+
+If we expand the Taylor series backward, we have that 
+\begin{itemize}
+	\item 	The zero-order Taylor-series approximation is
+	$$f(x_{i-1}) \cong f(x_i) $$
+	\item The first-order Taylor-series approximation is
+	$$f(x_{i-1}) \cong f(x_i) -\frac{h}{1!}f'(x_i) $$
+\end{itemize}	
+
+\end{frame}
+
+\begin{frame}[t]
+\frametitle{Taylor Series}
+
+If we expand the Taylor series backward, we have that 
+\begin{itemize}
+	\item 	The zero-order Taylor-series approximation is
+	$$f(x_{i-1}) \cong f(x_i) $$
+	\item The first-order Taylor-series approximation is
+	$$f(x_{i-1}) \cong f(x_i) -\frac{h}{1!}f'(x_i) $$
+	\item The second-order Taylor series approximation is 
+	$$f(x_{i-1}) \cong f(x_i) -\frac{h}{1!}f'(x_i) + \frac{h^2}{2!}f''(x_i)$$
+\end{itemize}	
+
+\end{frame}
+
+\begin{frame}[t]
+\frametitle{Taylor Series}
+
+If we expand the Taylor series backward, we have that 
+\begin{itemize}
+	\item 	The zero-order Taylor-series approximation is
+	$$f(x_{i-1}) \cong f(x_i) $$
+	\item The first-order Taylor-series approximation is
+	$$f(x_{i-1}) \cong f(x_i) -\frac{h}{1!}f'(x_i) $$
+	\item The second-order Taylor series approximation is 
+	$$f(x_{i-1}) \cong f(x_i) -\frac{h}{1!}f'(x_i) + \frac{h^2}{2!}f''(x_i)$$
+	\item The third-order Taylor series approximate can be written as
+	$$f(x_{i-1}) \cong f(x_i) - \frac{h}{1!}f'(x_i) + \frac{h^2}{2!}f''(x_i)-\frac{h^3}{3!}f^{(3)}(x_i)+...$$
+\end{itemize}	
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[t]
+\frametitle{Approximating Derivatives - Backward difference}
+If we again wish to approximate the first derivative, we rearrange the first-order Taylor series approximation
+$$f(x_{i-1}) \cong f(x_i)- \frac{h}{1!}f'(x_i),$$
+to solve for the derivative, $f'(x_i)$
+$$f'(x_i) = \frac{f(x_{i})-f(x_{i-1})}{h} $$
+\end{frame}
+
+\begin{frame}[t]
+\frametitle{Approximating Derivatives - Backward difference}
+If we again wish to approximate the first derivative, we rearrange the first-order Taylor series approximation
+$$f(x_{i-1}) \cong f(x_i)- \frac{h}{1!}f'(x_i),$$
+to solve for the derivative, $f'(x_i)$
+$$f'(x_i) = \frac{f(x_{i})-f(x_{i-1})}{h} $$
+If we have equispaced data, we can think of $x_{i+1}$ as being the x located distance $h$ away from $x_i$. We can rewrite out formula as
+$$f'(x) = \frac{f(x)-f(x-h)}{h}  $$
+\end{frame}
+
+\begin{frame}[t]
+\frametitle{Approximating Derivatives - Backward difference}
+If we again wish to approximate the first derivative, we rearrange the first-order Taylor series approximation
+$$f(x_{i-1}) \cong f(x_i)- \frac{h}{1!}f'(x_i),$$
+to solve for the derivative, $f'(x_i)$
+$$f'(x_i) = \frac{f(x_{i})-f(x_{i-1})}{h} $$
+If we have equispaced data, we can think of $x_{i+1}$ as being the x located distance $h$ away from $x_i$. We can rewrite out formula as
+$$f'(x) = \frac{f(x)-f(x-h)}{h}  $$
+\\\vspace{10pt}
+This is the \textit{backward difference} scheme and it's approximation is $\mathcal{O}(h)$ accurate.
+\end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[t]
+\frametitle{Example Forward and Backward difference: $h= 0.5$}
+Use forward and backward difference approximations to estimate the first derivative of
+$$f(x) = -0.1x^4-0.15x^3-0.5x^2-0.25x+1.2 $$
+at $x=0.5$, using a step size $h = 0.5$. Note that the derivative of this function is
+$$f'(x) = -0.4x^3-0.45x^2-x-0.25, \qquad f'(0.5) = -0.9125$$
+\end{frame}
+
+\begin{frame}[t]
+\frametitle{Example Forward and Backward difference: $h= 0.5$}
+Use forward and backward difference approximations to estimate the first derivative of
+$$f(x) = -0.1x^4-0.15x^3-0.5x^2-0.25x+1.2 $$
+at $x=0.5$, using a step size $h = 0.5$. Note that the derivative of this function is
+$$f'(x) = -0.4x^3-0.45x^2-x-0.25, \qquad f'(0.5) = -0.9125$$
+\\\vspace{5pt}
+Let's start with the forward difference scheme.\\\vspace{5pt}
+We have
+\begin{align*}
+ x = 0.5, \qquad &f(x) = 0.925\\
+ x+h = 1, \qquad &f(x+h) = 0.2\\
+\end{align*}
+\end{frame}
+
+\begin{frame}[t]
+\frametitle{Example Forward and Backward difference: $h= 0.5$}
+Use forward and backward difference approximations to estimate the first derivative of
+$$f(x) = -0.1x^4-0.15x^3-0.5x^2-0.25x+1.2 $$
+at $x=0.5$, using a step size $h = 0.5$. Note that the derivative of this function is
+$$f'(x) = -0.4x^3-0.45x^2-x-0.25, \qquad f'(0.5) = -0.9125$$
+\\\vspace{5pt}
+Let's start with the forward difference scheme.\\\vspace{5pt}
+We have
+\begin{align*}
+x = 0.5, \qquad &f(x) = 0.925\\
+x+h = 1, \qquad &f(x+h) = 0.2\\
+\end{align*}
+Plugging this into our forward difference scheme, 
+$$f'(x) = \frac{f(x+h)-f(x)}{h} $$
+we have
+\begin{align*}
+f'(0.5) &\approx \frac{0.2-0.925}{0.5} \\
+&\approx -1.45
+\end{align*}
+\end{frame}
+
+\begin{frame}
+\frametitle{Example Forward and Backward difference: $h= 0.5$}
+Use forward and backward difference approximations to estimate the first derivative of
+$$f(x) = -0.1x^4-0.15x^3-0.5x^2-0.25x+1.2 $$
+at $x=0.5$, using a step size $h = 0.5$. Note that the derivative of this function is
+$$f'(x) = -0.4x^3-0.45x^2-x-0.25, \qquad f'(0.5) = -0.9125$$
+\\\vspace{5pt}
+Let's start with the forward difference scheme.\\\vspace{5pt}
+We have
+\begin{align*}
+x = 0.5, \qquad &f(x) = 0.925\\
+x+h = 1, \qquad &f(x+h) = 0.2\\
+\end{align*}
+Plugging this into our forward difference scheme, 
+$$f'(x) = \frac{f(x+h)-f(x)}{h} $$
+we have
+\begin{align*}
+f'(0.5) &\approx \frac{0.2-0.925}{0.5} \\
+&\approx -1.45
+\end{align*}
+The percent relative error is $58.9\%$.
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}
+\frametitle{Example Forward and Backward difference: $h= 0.5$}
+Use forward and backward difference approximations to estimate the first derivative of
+$$f(x) = -0.1x^4-0.15x^3-0.5x^2-0.25x+1.2 $$
+at $x=0.5$, using a step size $h = 0.5$. Note that the derivative of this function is
+$$f'(x) = -0.4x^3-0.45x^2-x-0.25, \qquad f'(0.5) = -0.9125$$
+\\\vspace{5pt}
+Now, applying the backward difference scheme.\\\vspace{5pt}
+We have
+\begin{align*}
+x = 0.5, \qquad &f(x) = 0.925\\
+x-h = 0, \qquad &f(x-h) = 1.2\\
+\end{align*}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Example Forward and Backward difference: $h= 0.5$}
+Use forward and backward difference approximations to estimate the first derivative of
+$$f(x) = -0.1x^4-0.15x^3-0.5x^2-0.25x+1.2 $$
+at $x=0.5$, using a step size $h = 0.5$. Note that the derivative of this function is
+$$f'(x) = -0.4x^3-0.45x^2-x-0.25, \qquad f'(0.5) = -0.9125$$
+\\\vspace{5pt}
+Now, applying the backward difference scheme.\\\vspace{5pt}
+We have
+\begin{align*}
+x = 0.5, \qquad &f(x) = 0.925\\
+x-h = 0, \qquad &f(x-h) = 1.2\\
+\end{align*}
+Plugging this into our backward difference scheme, 
+$$f'(x) = \frac{f(x)-f(x-h)}{h} $$
+we have
+\begin{align*}
+f'(0.5) &\approx \frac{0.925-1.2}{0.5} \\
+&\approx -0.55
+\end{align*}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Example Forward and Backward difference: $h= 0.5$}
+Use forward and backward difference approximations to estimate the first derivative of
+$$f(x) = -0.1x^4-0.15x^3-0.5x^2-0.25x+1.2 $$
+at $x=0.5$, using a step size $h = 0.5$. Note that the derivative of this function is
+$$f'(x) = -0.4x^3-0.45x^2-x-0.25, \qquad f'(0.5) = -0.9125$$
+\\\vspace{5pt}
+Now, applying the backward difference scheme.\\\vspace{5pt}
+We have
+\begin{align*}
+x = 0.5, \qquad &f(x) = 0.925\\
+x-h = 0, \qquad &f(x-h) = 1.2\\
+\end{align*}
+Plugging this into our backward difference scheme, 
+$$f'(x) = \frac{f(x)-f(x-h)}{h} $$
+we have
+\begin{align*}
+f'(0.5) &\approx \frac{0.925-1.2}{0.5} \\
+&\approx -0.55
+\end{align*}
+The percent relative error is $39.7\%$.
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}
+\frametitle{Example Forward and Backward difference: $h= 0.25$}
+Use forward and backward difference approximations to estimate the first derivative of
+$$f(x) = -0.1x^4-0.15x^3-0.5x^2-0.25x+1.2 $$
+at $x=0.5$, using a step size $h = 0.25$. Note that the derivative of this function is
+$$f'(x) = -0.4x^3-0.45x^2-x-0.25, \qquad f'(0.5) = -0.9125$$
+\\\vspace{5pt}
+Starting again with the forward difference scheme.\\\vspace{5pt}
+We have
+\begin{align*}
+x = 0.5, \qquad &f(x) = 0.925\\
+x+h = 0.75, \qquad &f(x+h) = 0.63632813\\
+\end{align*}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Example Forward and Backward difference: $h= 0.25$}
+Use forward and backward difference approximations to estimate the first derivative of
+$$f(x) = -0.1x^4-0.15x^3-0.5x^2-0.25x+1.2 $$
+at $x=0.5$, using a step size $h = 0.25$. Note that the derivative of this function is
+$$f'(x) = -0.4x^3-0.45x^2-x-0.25, \qquad f'(0.5) = -0.9125$$
+\\\vspace{5pt}
+Starting again with the forward difference scheme.\\\vspace{5pt}
+We have
+\begin{align*}
+x = 0.5, \qquad &f(x) = 0.925\\
+x+h = 0.75, \qquad &f(x+h) = 0.63632813\\
+\end{align*}
+Plugging this into our forward difference scheme, 
+$$f'(x) = \frac{f(x+h)-f(x)}{h} $$
+we have
+\begin{align*}
+f'(0.5) &\approx \frac{0.63632813-0.925}{0.5} \\
+&\approx -1.155
+\end{align*}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Example Forward and Backward difference: $h= 0.25$}
+Use forward and backward difference approximations to estimate the first derivative of
+$$f(x) = -0.1x^4-0.15x^3-0.5x^2-0.25x+1.2 $$
+at $x=0.5$, using a step size $h = 0.25$. Note that the derivative of this function is
+$$f'(x) = -0.4x^3-0.45x^2-x-0.25, \qquad f'(0.5) = -0.9125$$
+\\\vspace{5pt}
+Starting again with the forward difference scheme.\\\vspace{5pt}
+We have
+\begin{align*}
+x = 0.5, \qquad &f(x) = 0.925\\
+x+h = 0.75, \qquad &f(x+h) = 0.63632813\\
+\end{align*}
+Plugging this into our forward difference scheme, 
+$$f'(x) = \frac{f(x+h)-f(x)}{h} $$
+we have
+\begin{align*}
+f'(0.5) &\approx \frac{0.63632813-0.925}{0.5} \\
+&\approx -1.155
+\end{align*}
+The percent relative error is $26.5\%$. Roughly half of what it was when $h=0.5$!
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}
+\frametitle{Example Forward and Backward difference: $h= 0.25$}
+Use forward and backward difference approximations to estimate the first derivative of
+$$f(x) = -0.1x^4-0.15x^3-0.5x^2-0.25x+1.2 $$
+at $x=0.5$, using a step size $h = 0.25$. Note that the derivative of this function is
+$$f'(x) = -0.4x^3-0.45x^2-x-0.25, \qquad f'(0.5) = -0.9125$$
+\\\vspace{5pt}
+Now, applying the backward difference scheme.\\\vspace{5pt}
+We have
+\begin{align*}
+x = 0.5, \qquad &f(x) = 0.925\\
+x-h = 0.25, \qquad &f(x-h) = 1.10351563\\
+\end{align*}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Example Forward and Backward difference: $h= 0.25$}
+Use forward and backward difference approximations to estimate the first derivative of
+$$f(x) = -0.1x^4-0.15x^3-0.5x^2-0.25x+1.2 $$
+at $x=0.5$, using a step size $h = 0.25$. Note that the derivative of this function is
+$$f'(x) = -0.4x^3-0.45x^2-x-0.25, \qquad f'(0.5) = -0.9125$$
+\\\vspace{5pt}
+Now, applying the backward difference scheme.\\\vspace{5pt}
+We have
+\begin{align*}
+x = 0.5, \qquad &f(x) = 0.925\\
+x-h = 0.25, \qquad &f(x-h) = 1.10351563\\
+\end{align*}
+Plugging this into our backward difference scheme, 
+$$f'(x) = \frac{f(x)-f(x-h)}{h} $$
+we have
+\begin{align*}
+f'(0.5) &\approx \frac{0.925-1.10351563}{0.5} \\
+&\approx -0.714
+\end{align*}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Example Forward and Backward difference: $h= 0.25$}
+Use forward and backward difference approximations to estimate the first derivative of
+$$f(x) = -0.1x^4-0.15x^3-0.5x^2-0.25x+1.2 $$
+at $x=0.5$, using a step size $h = 0.25$. Note that the derivative of this function is
+$$f'(x) = -0.4x^3-0.45x^2-x-0.25, \qquad f'(0.5) = -0.9125$$
+\\\vspace{5pt}
+Now, applying the backward difference scheme.\\\vspace{5pt}
+We have
+\begin{align*}
+x = 0.5, \qquad &f(x) = 0.925\\
+x-h = 0.25, \qquad &f(x-h) = 1.10351563\\
+\end{align*}
+Plugging this into our backward difference scheme, 
+$$f'(x) = \frac{f(x)-f(x-h)}{h} $$
+we have
+\begin{align*}
+f'(0.5) &\approx \frac{0.925-1.10351563}{0.5} \\
+&\approx -0.714
+\end{align*}
+The percent relative error is $21.1\%$, roughly half of the error when $h=0.5$.
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{frame}
+\frametitle{Example Forward and Backward difference summary}
+Since both the forward and backward schemes are $\mathcal{O}(h)$ accurate, when we halve $h$, we expect to halve the error - which is what we observed in this example. 
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Deriving the Centered Difference Scheme}
+\begin{frame}
+\frametitle{Approximating Derivatives - Centered Difference}
+There's a third way to approximate the first derivative using Taylor series. 
+\\\vspace{5pt}
+If we subtract the third-order backward Taylor series expansion 
+$$f(x_{i-1}) = f(x_i) -\frac{h}{1!}f'(x_i) + \frac{h^2}{2!}f''(x_i)-\frac{h^3}{3!}f^{(3)}(x_i)$$
+from the third-order forward Taylor series expansion
+$$f(x_{i+1}) = f(x_i) +\frac{h}{1!}f'(x_i) + \frac{h^2}{2!}f''(x_i)+ \frac{h^3}{3!}f^{(3)}(x_i)$$
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Approximating Derivatives - Centered Difference}
+We have
+\begin{align*}
+f(x_{i+1}) - f(x_{i-1}) &= f(x_i) +\frac{h}{1!}f'(x_i) + \frac{h^2}{2!}f''(x_i) + \frac{h^3}{3!}f^{(3)}(x_i)\\
+&  \qquad \qquad \qquad-\left(f(x_i) -\frac{h}{1!}f'(x_i) + \frac{h^2}{2!}f''(x_i)-\frac{h^3}{3!}f^{(3)}(x_i)\right)\\
+f(x_{i+1}) - f(x_{i-1}) &= 2hf'(x_i)+\frac{2h^3}{3!}f^{(3)}(x_i)\\
+\end{align*}
+Rearranging for $f'(x_i)$
+$$f'(x_i) = \frac{f(x_{i+1})-f(x_{i-1})}{2h} -\frac{h^2}{6}f^{(3)}(x_i)$$
+which can be re-written as
+$$f'(x) = \frac{f(x+h)-f(x-h)}{2h} -\mathcal{O}(h^2)$$
+This is the \textit{centered difference} scheme and has an accuracy of $\mathcal{O}(h^2)$.
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Example Centered difference: $h= 0.5$}
+Use a centered difference approximation to estimate the first derivative of
+$$f(x) = -0.1x^4-0.15x^3-0.5x^2-0.25x+1.2 $$
+at $x=0.5$, using a step size $h = 0.5$. Note that the derivative of this function is
+$$f'(x) = -0.4x^3-0.45x^2-x-0.25, \qquad f'(0.5) = -0.9125$$
+\\\vspace{5pt}
+Now, applying the centered difference scheme.\\\vspace{5pt}
+We have
+\begin{align*}
+x+h = 1, \qquad &f(x+h) = 0.2\\
+x-h = 0, \qquad &f(x-h) = 1.2\\
+\end{align*}
+\end{frame}
+
+\begin{frame}
+\frametitle{Example Centered difference: $h= 0.5$}
+Use a centered difference approximation to estimate the first derivative of
++\end{frame}
+
+\begin{frame}
+\frametitle{Example Centered difference: $h= 0.5$}
+Use a centered difference approximation to estimate the first derivative of
+$$f(x) = -0.1x^4-0.15x^3-0.5x^2-0.25x+1.2 $$
+at $x=0.5$, using a step size $h = 0.5$. Note that the derivative of this function is
+$$f'(x) = -0.4x^3-0.45x^2-x-0.25, \qquad f'(0.5) = -0.9125$$
+\\\vspace{5pt}
+Now, applying the centered difference scheme.\\\vspace{5pt}
+We have
+\begin{align*}
+x+h = 1, \qquad &f(x+h) = 0.2\\
+x-h = 0, \qquad &f(x-h) = 1.2\\
+\end{align*}
+Plugging this into our centered difference scheme, 
+$$f'(x) = \frac{f(x+h)-f(x-h)}{2h} $$
+we have
+\begin{align*}
+f'(0.5) &\approx \frac{0.2-1.2}{1} \\
+&\approx -1
+\end{align*}
+The percent relative error is $9.6\%$.
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Example Centered difference: $h= 0.25$}
+Use a centered difference approximation to estimate the first derivative of
+$$f(x) = -0.1x^4-0.15x^3-0.5x^2-0.25x+1.2 $$
+at $x=0.5$, using a step size $h = 0.25$. Note that the derivative of this function is
+$$f'(x) = -0.4x^3-0.45x^2-x-0.25, \qquad f'(0.5) = -0.9125$$
+\\\vspace{5pt}
+Now, applying the centered difference scheme.\\\vspace{5pt}
+We have
+\begin{align*}
+x+h = 0.75, \qquad &f(x+h) = 0.63632813\\
+x-h = 0.25, \qquad &f(x-h) = 1.10351563\\
+\end{align*}
+Plugging this into our centered difference scheme, 
+$$f'(x) = \frac{f(x+h)-f(x-h)}{2h} $$
+we have
+\begin{align*}
+f'(0.5) &\approx \frac{0.63632813-1.10351563}{0.5} \\
+&\approx -0.934
+\end{align*}
+The percent relative error is $2.4\%$, a quarter of what is was when $h=0.5$.
+\end{frame}
+
+\begin{frame}
+\frametitle{Example centered difference summary}
+Since the centered difference scheme is $\mathcal{O}(h^2)$ accurate, when we halve $h$, we expect to quarter the error - which is what we observed in this example.
+$$\left(\frac{h}{2}\right)^2 = \frac{h^2}{4} $$ 
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Programming Finite Difference Methods}
+\begin{frame}
+	\frametitle{Let's code them!}
+	We'll write 3 routines\\
+	\texttt{ }\\
+	\texttt{forwardDifference(double x, double h)}\\
+	\texttt{\qquad return (f(x + h) - f(x)) / h}\\
+	\texttt{ }\\
+	\texttt{backwardDifference(double x, double h)}\\
+	\texttt{\qquad return (f(x) - f(x - h)) / h}\\
+	\texttt{ }\\
+	\texttt{centeredDifference(double x, double h)}\\
+	\texttt{\qquad return (f(x + h) - f(x - h)) / (2 * h)}\\
+	\texttt{ }\\
+	And test it on the example
+	$$f(x) = -0.1x^4-0.15x^3-0.5x^2-0.25x+1.2 $$
+\end{frame}
+
+\begin{frame}
+	\frametitle{Sign-off Activity}
+	Add these functions to your library using the following syntax:\\
+	\texttt{ }\\
+	\texttt{forwardDifference(double x, double h, double (*f)(double x)}\\
+	\texttt{ }\\
+	\texttt{backwardDifference(double x, double h, double (*f)(double x))}\\
+	\texttt{ }\\
+	\texttt{centeredDifference(double x, double h, double (*f)(double x))}\\
+	\texttt{ }\\
+\end{frame}
+\end{document}

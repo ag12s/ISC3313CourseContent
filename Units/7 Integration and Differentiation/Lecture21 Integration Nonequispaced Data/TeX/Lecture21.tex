@@ -1,0 +1,183 @@
+\documentclass{if-beamer}
+
+% --------------------------------------------------- %
+%                  Presentation info	              %
+% --------------------------------------------------- %
+\title[Lecture 21]{Lecture 21}
+\subtitle{Integration with Unequal Segments}
+\author{Ashley Gannon}
+\date{ISC3313 Fall 2021}
+\logo{
+\includegraphics[scale=0.08]{figures/FSULogo.png}
+}
+\subject{Presentation subject}
+
+% --------------------------------------------------- %
+%                    Title + Schedule                 %
+% --------------------------------------------------- %
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+% --------------------------------------------------- %
+%                      Presentation                   %
+% --------------------------------------------------- %
+\section{Integration with Unequal Segments}
+\begin{frame}
+\frametitle{Integration with Unequal Segments}
+To this point, all formulas for numerical integration have been based on equispaced data.\\\vspace{10pt}
+
+In practice, there are many situations where this assumption does not hold and we must deal with unequal-sized segments. For example, experimentally derived data are often of this type. \\\vspace{10pt}
+
+For these cases, we need to change the way we define $h$. \\\vspace{10pt}
+
+Let's write a Trapezoid Rule function that takes in non equispaced data.
+\end{frame}
+
+\begin{frame}
+\frametitle{Thinking about this in regards to the Trapezoid Rule}
+Recall the approximate value for the integral with equispaced data was
+$$I = \frac{h}{2}(f(x_0)+f(x_n))+h\left( \sum_{i = 1}^{n-1}f(x_i)\right)$$
+Since our h value isn't the same for each segment, we can no longer write it this way. Instead, 
+$$I = \frac{h_1}{2}(f(x_0)+f(x_1)) + \frac{h_2}{2}(f(x_1)+f(x_2))
++...+ \frac{h_n}{2}(f(x_{n-1})+f(x_n))$$
+
+Where $h_1$ is the width of the first segment, $h_2$ is the width of the second segment and so on. So, instead of defining $h$ once outside out loop, we need to calculate it each time we iterate. 
+\end{frame}
+
+\begin{frame}
+	\frametitle{The Composite Trapezoid Rule Pseudocode}
+		
+	\begin{minipage}[t]{0.5\textwidth}
+	Our old pseudocode:\\
+	\vspace{10pt}
+	\texttt{function takes in a, b, n}\\
+	\texttt{declare/define h = (b-a)/n;}\\
+	\texttt{declare/define sum = (h/2)*(f(a)+f(b)); }\\
+	\texttt{declare/define xi = a+h;}\\
+	\texttt{ }\\
+	\texttt{loop over i = 1,...,n-1 }\\
+	\texttt{\qquad add h*f(xi) to sum} \\
+	\texttt{\qquad update xi = xi +h;}\\
+	\end{minipage}
+	\vspace{10pt}
+	\begin{minipage}[t]{0.5\textwidth}
+	Pseudocode for non equispaced data\\
+	\vspace{10pt}
+	\texttt{function takes in x, fx, n}\\
+	\texttt{declare/define h = 0;}\\
+	\texttt{declare/define sum = 0; }\\
+	\texttt{ }\\
+	\texttt{loop over i = 1,...,n }\\
+	\texttt{\qquad calculate new h = x[i]-x[i-1]}\\
+	\texttt{\qquad add (h/2)*(fx[i-1]+fx[i]) to sum} \\
+	\end{minipage}	
+	
+
+	
+\end{frame}	
+
+\section{Importing Data}
+
+\begin{frame}
+	\frametitle{Reading in data}
+	In order to write and read files we need to include header file
+	\texttt{<fstream>}. \\\vspace{5pt}
+	Reading from file can be done by declaring \texttt{ifstream} in the following manner:\\\vspace{10pt}
+	
+	\texttt{// create a binary file object and open a file that contains the data}\\
+	\texttt{ifstream xdata("xdata.dat", ifstream::binary);;}\\
+	\texttt{ }\\
+	\texttt{// write data to file}\\
+	\texttt{for (int i = 0; i < N; i++)}\\
+	\texttt{\{}\\
+	\texttt{\qquad // this takes the data on one line and stores in x[i]}\\
+	\texttt{\qquad xdata >> x[i];}\\
+	\texttt{\}}\\
+	\texttt{ }\\
+	\texttt{// close file}\\
+	\texttt{xdata.close();}\\
+	
+\end{frame}
+
+\begin{frame}
+	\frametitle{Reading in data}
+	In order to write and read files we need to include header file
+	\texttt{<fstream>}. \\\vspace{5pt}
+	Reading from file can be done by declaring \texttt{ifstream} in the following manner:\\\vspace{10pt}
+	
+	\texttt{// create a binary file object and open a file that contains the data}\\
+	\texttt{ifstream xdata("xdata.dat", ifstream::binary);;}\\
+	\texttt{ }\\
+	\texttt{// write data to file}\\
+	\texttt{for (int i = 0; i < N; i++)}\\
+	\texttt{\{}\\
+	\texttt{\qquad // this takes the data on one line and stores in x[i]}\\
+	\texttt{\qquad xdata >> x[i];}\\
+	\texttt{\}}\\
+	\texttt{ }\\
+	\texttt{// close file}\\
+	\texttt{xdata.close();}\\
+	\vspace{10pt}
+	But what if we don't know how many elements our data has?
+\end{frame}
+
+\begin{frame}
+\frametitle{C++ Vectors}
+In order to use vectors, we need to include header file
+\texttt{<vector>}. \\\vspace{10pt}
+Vectors are sequence containers representing arrays that can change in size.\\\vspace{10pt}
+
+Internally, vectors use a dynamically allocated array to store their elements. \\\vspace{5pt}
+
+They are declared as follows:
+\\\vspace{5pt}
+\texttt{vector<double> x}
+
+\end{frame}
+
+\begin{frame}
+	\frametitle{C++ Vectors}
+	In order to use vectors, we need to include header file
+	\texttt{<vector>}. \\\vspace{10pt}
+	Vectors are sequence containers representing arrays that can change in size.\\\vspace{10pt}
+	
+	Internally, vectors use a dynamically allocated array to store their elements. \\\vspace{10pt}
+	
+	They are declared as follows:
+	\\\vspace{10pt}
+	\texttt{vector<double> X}\\
+	\vspace{10pt}
+	If we want to save each element of the data file to the vector, we can use the \texttt{push\_back} member function. This member function adds a new element to the end of the vector, \texttt{x}.
+	\\\vspace{10pt}
+	\texttt{double x}\\
+	\texttt{while (xdata >> x) }\\
+	\texttt{\qquad X.push\_back(x);}\\
+	\texttt{xdata.close()}\\
+\end{frame}
+
+\begin{frame}
+	\frametitle{Reading in x and fx}
+	Download "fdata.dat" and "xdata.dat" from Canvas, you'll need them for this. \\\vspace{10pt}
+%	
+	\texttt{ifstream xdata("xdata.dat", ifstream::binary)} \\ 
+	\texttt{ifstream fdata("fdata.dat", ifstream::binary)} \\
+	\texttt{ }\\
+	\texttt{vector<double> X,Fx;}
+	\texttt{ }\\
+	\texttt{double x;}\\
+	\texttt{while (xdata >> x)}\\	
+	\texttt{\qquad X.push\_back(x)}\\
+	\texttt{xdata.close()}\\	
+	\texttt{ }\\
+	\texttt{double fx;}\\
+	\texttt{while (fdata >> fx)}\\	
+	\texttt{\qquad Fx.push\_back(fx)}\\	
+	\texttt{fdata.close()}\\\vspace{10pt}
+	
+	To get the size of the vector, we use the public member function \texttt{size}. \\\vspace{10pt}
+	\texttt{int n = X.size() - 1}\\	
+\end{frame}
+
+\end{document}

@@ -1,0 +1,4 @@
+\babel@toc {english}{}\relax 
+\beamer@sectionintoc {1}{Deriving the Forward and Backward Difference Schemes}{2}{0}{1}
+\beamer@sectionintoc {2}{Deriving the Centered Difference Scheme}{31}{0}{2}
+\beamer@sectionintoc {3}{Programming Finite Difference Methods}{39}{0}{3}

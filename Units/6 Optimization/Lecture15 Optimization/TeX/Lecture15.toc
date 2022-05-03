@@ -1,0 +1,2 @@
+\babel@toc {english}{}\relax 
+\beamer@sectionintoc {1}{Wrapping up the Golden-Section Search Method}{2}{0}{1}

@@ -1,0 +1,1 @@
+Discussed the switch case and never returned to it in the semester. 

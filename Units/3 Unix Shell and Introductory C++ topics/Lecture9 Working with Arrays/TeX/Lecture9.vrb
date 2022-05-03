@@ -1,0 +1,15 @@
+\frametitle{Class activity 2}
+Write a \texttt{void} function (called \texttt{linspace}) that takes as an
+argument \\
+\vspace{5pt}
+\begin{itemize}
+	\item a pointer (type \texttt{double}),\\
+	\item lower and upper bounds ($x_a$ and $x_b$, type \texttt{double}), \\
+	\item and the number of elements ($N$ type \texttt{int}) for the domain
+	to be discretized by	\\
+\end{itemize}
+\vspace{5pt}
+The code should compute $N+1$ points along the domain and store them in the array pointer. Test your code for $N = 10$, and $x_a = 0$, $x_b = 1$.\\
+
+\vspace{10pt}
+Post your code in the discussion board \textbf{Linspace Function} for participation credit.

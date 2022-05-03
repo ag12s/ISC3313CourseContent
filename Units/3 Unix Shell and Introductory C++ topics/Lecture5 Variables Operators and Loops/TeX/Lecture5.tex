@@ -1,0 +1,302 @@
+\documentclass{if-beamer}
+
+% --------------------------------------------------- %
+%                  Presentation info	              %
+% --------------------------------------------------- %
+\title[Lecture 5]{Lecture 5}
+\subtitle{Variables, Operators, Libraries, Input/output}
+\author{Instructor: Ashley Gannon}
+\date{ISC3313 Fall 2021}
+\logo{
+\includegraphics[scale=0.08]{figures/FSULogo.png}
+}
+\subject{Presentation subject} % metadata
+
+\graphicspath{{figures/}}
+% --------------------------------------------------- %
+%                    Title + Schedule                 %
+% --------------------------------------------------- %
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+% --------------------------------------------------- %
+%                      Presentation                   %
+% --------------------------------------------------- %
+\section{Variables}
+
+\begin{frame}
+\frametitle{What is a variable?}
+\begin{block}{Short Answer} It is an object that represents a certain class of data \end{block}
+For example if you saw the expression $x + 5$ in a math class you would immediately know that $x$ was a variable that represented a number. \\
+\medskip
+In order to perform any kind of algorithm you must have some sort of data and that data is stored in what we call a variable. \\
+\medskip
+The class or group of data that the variable might contain is called its type. \\
+\medskip
+It might be useful to portray data stored in our computers in the following fashion:
+\begin{table}
+	\begin{tabular}{cl l l}
+		\textbf{Variable Name} & \textbf{Type} & \textbf{Value}\\
+		x & int & 2 \\
+		y & int & 3 \\	
+	\end{tabular}
+\end{table}
+\end{frame}
+
+\begin{frame}
+\frametitle{Types}
+A few built in types that are available for you to use:
+\begin{itemize}
+\item \textbf{int} (represents the math class integer with bounds [-2147483648, 2147483647])*
+\item \textbf{float} (represents the math class Real with precision $~10^{-7}$)*
+\item \textbf{char} (represents a single character of text ie. 'a')
+\item \textbf{string} (We've already seen this one in our Hello World example. It represents a list of characters.)
+\end{itemize}
+\medskip
+*Values may vary from one computer to another.
+\end{frame}
+
+\begin{frame}
+\frametitle{Variable Declaration and Assignment}
+To declare a variable we state the type then the name. \\
+For example if we typed \texttt{int x;} we would create a variable named x of type int 
+\begin{table}
+\begin{tabular}{cl l l}
+\textbf{Variable Name} & \textbf{Type} & \textbf{Value}\\
+x & int & ? \\
+\end{tabular}
+\end{table}
+\end{frame}
+
+\begin{frame}
+\frametitle{Variable Declaration and Assignment}
+To declare a variable we state the type then the name. \\
+For example if we typed \texttt{int x;} we would create a variable named x of type int 
+\begin{table}
+	\begin{tabular}{cl l l}
+		\textbf{Variable Name} & \textbf{Type} & \textbf{Value}\\
+		x & int & ? \\
+	\end{tabular}
+\end{table}
+
+To assign a value to a variable, we use the \texttt{=} operator. For example if we now typed \texttt{x = 5;}, the the variable x would contain the value 5.
+\begin{table}
+	\begin{tabular}{cl l l}
+		\textbf{Variable Name} & \textbf{Type} & \textbf{Value}\\
+		x & int & 5 \\
+	\end{tabular}
+\end{table}
+\end{frame}
+
+\begin{frame}
+\frametitle{Variable Declaration and Assignment}
+To declare a variable we state the type then the name. \\
+For example if we typed \texttt{int x;} we would create a variable named x of type int 
+\begin{table}
+	\begin{tabular}{cl l l}
+		\textbf{Variable Name} & \textbf{Type} & \textbf{Value}\\
+		x & int & ? \\
+	\end{tabular}
+\end{table}
+
+To assign a value to a variable, we use the \texttt{=} operator. For example if we now typed \texttt{x = 5;}, the the variable x would contain the value 5.
+\begin{table}
+	\begin{tabular}{cl l l}
+		\textbf{Variable Name} & \textbf{Type} & \textbf{Value}\\
+		x & int & 5 \\
+	\end{tabular}
+\end{table}
+
+It is also possible to declare a variable and initialize it in the same line.
+For example: \texttt{int x = 5;}, would give us the same result.
+\begin{table}
+	\begin{tabular}{cl l l}
+		\textbf{Variable Name} & \textbf{Type} & \textbf{Value}\\
+		x & int & 5 \\
+	\end{tabular}
+\end{table}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Exercises}
+Try Compiling and running after every step, so that you can spot your mistakes a little easier. 
+\begin{itemize}
+\item Create a file called Types.cpp
+\item Declare and initialize an integer variable named x to the value 5;
+\item Declare and initialize a float variable named y to the value 1.5;
+\item Delcare an int variable named z;
+\item Initialize z to the value $x / y$. 
+\item Print the value of z with the command \texttt{printf(z);} Why doesn't it work?
+\item Now try printing the value of z with the command \texttt{printf("\%f", z);}
+\item What's the value of z? Why do you think that is?
+\item What if we change the f to a d? \texttt{printf("\%d", z);}
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Miscellaneous Notes on Variables}
+\begin{minipage}{0.7\textwidth}
+\begin{itemize}
+\item Variable names are case sensitive. Thus \texttt{patrick} is registered as a different variable than \texttt{Patrick}.
+\item When assigning char's you must put a single quote around the character. \\ \texttt{char letterA =  'a';}
+\item When assigning a string you must put a double quote around the group of characters, ie. "Hello World!".
+\end{itemize}
+\end{minipage}
+\begin{minipage}{0.3\textwidth}
+\includegraphics[width = \textwidth]{figures/patrick}	
+\end{minipage}
+
+\end{frame}
+
+\section{}
+
+\begin{frame}
+\frametitle{Booleans}
+\begin{block}{Boolean}
+	A variable that covers the state space of true or false. Which in terms of ones and zeros is either 1 or 0. A small caveat of c++ is that it often treats everything that is not a zero as true. This can be useful or it can be annoying. 
+\end{block}
+\medskip
+A declaration and initialization might look like: \\
+\vspace{1pt}
+\texttt{bool performCalculation = false;}
+\end{frame}
+
+\begin{frame}
+\frametitle{Operators}
+An operator is a simple algorithm that takes some input (usually two values) and returns another value as output. The mathematical operators are good examples and behave as expected. 
+\begin{block}{Comparison operators}
+	\vspace{2pt}
+	\begin{columns}[c] % The "c" option specifies centered vertical alignment while the "t" option is used for top vertical alignment
+		\column{.18\textwidth} % Left column and width
+		$<$ less than\\ $>$ greater than 
+		\column{.35\textwidth}
+		$<=$ less than or equal to\\ $>=$ greater than or equal to 
+		\column{.3\textwidth}
+		== equal to\\ != not equal to
+	\end{columns}
+\end{block}
+\begin{block}{logical operators}
+	\&\& Represents 'AND'\\
+	$||$ Represents 'OR' \\
+	! Represents 'NOT'
+\end{block}
+\end{frame}
+
+\begin{frame}
+\frametitle{Conditions}
+\begin{block}{Condition}
+A statement that evaluates to a boolean value. 
+\end{block}
+\begin{block}{Conditional statements: True or false?}
+	\begin{enumerate}
+		\item 1 $<$ 2
+		\item 2 $>=$ 3
+		\item 1 $!=$ 2
+		\item 1 $==$ 2
+		\item 1 $=$ 2
+	\end{enumerate}
+\end{block}
+\end{frame}
+
+\begin{frame}
+\frametitle{Conditions}
+\begin{block}{Condition}
+	A statement that evaluates to a boolean value. 
+\end{block}
+\begin{block}{Conditional statements: True or false?}
+	\begin{enumerate}
+		\item 1 $<$ 2  \hfill  True \\
+		\item 2 $>=$ 3  \hfill False \\
+		\item 1 $!=$ 2  \hfill True \\
+		\item 1 $==$ 2  \hfill False \\
+		\item 1 $=$ 2  \hfill Invalid notation \\
+	\end{enumerate}
+\end{block}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Tokens}
+\begin{figure}
+	\center
+	\includegraphics[width=0.9\textwidth]{tokens.png}
+\end{figure}
+\end{frame}
+
+\begin{frame}
+\frametitle{Keywords}
+Some keywords are covered by the datatypes. Some other important
+ones to know for now are:
+\begin{itemize}
+\item \texttt{if}: executes a chunk of code if a given condition is
+true (can execute other code with \texttt{else} if condition
+is not true)
+\item \texttt{for}: allows the program to execute a number of
+statements in sequence
+\item \texttt{while}: allows the program to execute statements
+until a condition is satisfied
+\end{itemize}
+Much more on these later in the course!
+\end{frame}
+
+\begin{frame}
+\frametitle{Identifiers}
+Identifiers are things that come from outside
+the language itself, i.e. from user-written code. For example, the
+\texttt{cout} and \texttt{endl} identifiers: \\[0.5cm]
+{ \footnotesize 
+cout << "Hello world!" << endl;
+} \\[0.5cm]
+These actually come from a library.
+\end{frame}
+
+\begin{frame}
+\frametitle{Libraries}
+Libraries can be input to a program by means of a \textit{header
+file}. This file has a special extension, \texttt{.h}. For example,
+the header file \texttt{iostream.h} gives us the \texttt{cout} and
+\texttt{endl} identifiers. Some other popular ones are
+\begin{itemize}
+\item \texttt{stdio.h}
+\item \texttt{iostream.h}
+\item \texttt{stdlib.h}
+\item \texttt{math.h}
+\item \texttt{string.h}
+\end{itemize}
+You can think of these as augmenting the \texttt{C++} language. You
+can write your own header files! Put them into your program with
+\texttt{\#include <filename.h>}
+\end{frame}
+
+\begin{frame}
+\frametitle{Input and Output}
+Instead of printf();
+\medskip
+
+\begin{block}{cout $<<$ variable;}
+	Used to print to the terminal. It can be used to print many different data types. 
+\end{block}
+
+\begin{block}{cin $>>$ variable;}
+	Takes input from the screen and puts it into the following variable. 
+\end{block}
+
+These commands are available in the iostream package, so be sure to use \\
+\texttt{ \#include $<$iostream$>$} \\
+at the top of your program. 
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Class Exercise - Loops!}
+	Download  \texttt{HelloWorld5\_for.cpp} and \texttt{HelloWorld5\_while.cpp} from Canvas. Move them to your ClassActivity folder. 
+
+\end{frame}
+
+
+
+\end{document}

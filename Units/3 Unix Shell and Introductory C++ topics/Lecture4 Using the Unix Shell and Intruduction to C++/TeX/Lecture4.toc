@@ -1,0 +1,7 @@
+\babel@toc {english}{}\relax 
+\beamer@sectionintoc {1}{Unix shell and Basic Commands}{2}{0}{1}
+\beamer@sectionintoc {2}{Redirecting output}{10}{0}{2}
+\beamer@sectionintoc {3}{Programming languages}{13}{0}{3}
+\beamer@sectionintoc {4}{Overview of C++}{17}{0}{4}
+\beamer@sectionintoc {5}{Hello World Program}{22}{0}{5}
+\beamer@sectionintoc {6}{Running First Program}{26}{0}{6}

@@ -1,0 +1,2 @@
+Get rid of the light switch example. It confused students and they didn't make the connection between why
+the second method is better than the first. 

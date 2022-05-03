@@ -1,0 +1,5 @@
+\babel@toc {english}{}\relax 
+\beamer@sectionintoc {1}{Overview}{2}{0}{1}
+\beamer@sectionintoc {2}{Integration}{5}{0}{2}
+\beamer@sectionintoc {3}{Newton-Cotes formulas}{11}{0}{3}
+\beamer@sectionintoc {4}{The Trapezoidal Rule}{17}{0}{4}

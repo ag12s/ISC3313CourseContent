@@ -1,0 +1,6 @@
+\babel@toc {english}{}\relax 
+\beamer@sectionintoc {1}{Syllabus overview}{2}{0}{1}
+\beamer@sectionintoc {2}{Introductions}{6}{0}{2}
+\beamer@sectionintoc {3}{What is scientific computing?}{8}{0}{3}
+\beamer@sectionintoc {4}{Overview of computational science topics}{12}{0}{4}
+\beamer@sectionintoc {5}{Why be a computational scientist?}{16}{0}{5}

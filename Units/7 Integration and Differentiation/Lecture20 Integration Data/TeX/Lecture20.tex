@@ -1,0 +1,218 @@
+\documentclass{if-beamer}
+
+% --------------------------------------------------- %
+%                  Presentation info	              %
+% --------------------------------------------------- %
+\title[Lecture 20]{Lecture 20}
+\subtitle{Integration: Coding the Simpson's Rules for data input}
+\author{Ashley Gannon}
+\date{ISC3313 Fall 2021}
+\logo{
+\includegraphics[scale=0.08]{figures/FSULogo.png}
+}
+\subject{Presentation subject}
+
+% --------------------------------------------------- %
+%                    Title + Schedule                 %
+% --------------------------------------------------- %
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+% --------------------------------------------------- %
+%                      Presentation                   %
+% --------------------------------------------------- %
+\section{Recalling How to Make Arrays}
+
+\begin{frame}
+\frametitle{Creating and passing arrays into a function}
+Recall how to declare/define an array\\\vspace{5pt}
+\texttt{int myarr[4] = \{4, 1, 8, 13\}}\\\vspace{5pt}
+Or by \\\vspace{5pt}
+\texttt{int myarr[] = \{4,1,8,13\}}\\\vspace{5pt}
+Passing an array into a function is easy. \vspace{5pt}
+\\\texttt{double myfunc(int myarr[])}
+\\\texttt{\{}
+\\\texttt{\qquad ...}
+\\\texttt{\}}	\\
+We intend to pass arrays into our function for x and f given below.
+\begin{table}
+	\begin{tabular}{c| c c c c c c c c}
+		$i$ &0& 1&2&3&4&5&6&7 \\
+		\hline
+		$x_i$& 1.0 &1.1&1.2&1.3&1.4&1.5&1.6&1.7\\
+		$f(x_i)$&1.543&1.669&1.811&1.971&2.151&2.352&2.577&2.828\\		
+	\end{tabular}
+\end{table}
+
+\end{frame}
+
+\section{Writing the \texttt{DataSimpsonsRules} Code}
+
+\begin{frame}
+	\frametitle{Modifying our pseudocode for Simpson's 1/3 Rule}
+	For the case where the number of segments, $n$, is even, we only need to apply Simpson's 1/3 Rule. The total integration using Simpson's 1/3 Rule can be represented as
+	$$I = \frac{h}{3}(f(x_0)+f(x_n))+\frac{h}{3}\left( 4\sum_{i = 1,3,5...}^{n-1}f(x_i) + 2\sum_{j = 2,4,6,...}^{n-2} f(x_j) \right)$$
+	Looking at the pseudocode from last class without the recursion, \\\vspace{5pt}
+	\texttt{declare function that takes in a, b, n}\\
+	\texttt{declare/define h = (b-a)/n;}\\
+	\texttt{declare/define sum = (h/3)*(f(a)+f(b)); }\\
+	\texttt{declare/define xi = a+h;}\\
+	\texttt{ }\\
+	\texttt{loop over i = 1,...,n-1 }\\
+	\texttt{\qquad if(i \% 2 == 0)}\\
+	\texttt{\qquad \qquad add 2*h/3*f(xi) to sum} \\
+	\texttt{\qquad else}\\
+	\texttt{\qquad \qquad add 4*h/3*f(xi) to sum} \\
+	\texttt{\qquad update xi = xi +h;}\\\vspace{3pt}
+	We need to edit our code so that our function takes in arrays of  values and function values and re-write it to use the values of the arrays.  
+\end{frame}
+
+\begin{frame}
+	\frametitle{Modifying our pseudocode for Simpson's 1/3 Rule}
+	For the case where the number of segments, $n$, is even, we only need to apply Simpson's 1/3 Rule. The total integration using Simpson's 1/3 Rule can be represented as
+	$$I = \frac{h}{3}(f(x_0)+f(x_n))+\frac{h}{3}\left( 4\sum_{i = 1,3,5...}^{n-1}f(x_i) + 2\sum_{j = 2,4,6,...}^{n-2} f(x_j) \right)$$
+	Looking at the pseudocode from last class without the recursion, \\\vspace{5pt}
+	\texttt{declare function that takes in x[], f[], n}\\
+	\texttt{ }\\
+	\texttt{declare/define h = (x[n]-x[0])/n;}\\
+	\texttt{declare/define sum = (h/3)*(f[0]+f[n]);}\\
+	\texttt{ }\\
+	\texttt{loop over i = 1,...,n-1 }\\
+	\texttt{\qquad if(i \% 2 == 0)}\\
+	\texttt{\qquad \qquad add 2*h/3*f[i] to sum} \\
+	\texttt{\qquad else}\\
+	\texttt{\qquad \qquad add 4*h/3*f[i] to sum}
+	\texttt{ } \\\vspace{5pt}
+	
+	We need to edit our code so that our function takes in arrays of  values and function values and re-write it to use the values of the arrays.  
+\end{frame}
+
+\begin{frame}
+	\frametitle{Pseudocode for Simpson's 3/8 Rule}
+	For the case where the number of segments, $n$, is odd AND divisible by 3, we only need to apply Simpson's 3/8 Rule. The total integration using Simpson's 3/8 Rule can be represented as
+	$$I = \frac{3h}{8}(f(x_0)+f(x_n))+\frac{3h}{8}\left( \sum_{i = 1}^{n-1}3f(x_i) \right)$$
+	
+	\texttt{declare function that takes in x[], f[], n}\\
+	\texttt{ }\\
+	\texttt{declare/define h = (x[n]-x[0])/n;}\\
+	\texttt{declare/define sum = (3*h/8)*(f[0]+f[n]);}\\
+	\texttt{ }\\
+	\texttt{loop over i = 1,...,n-1 }\\
+	\texttt{\qquad add (3*h/8)*3*f[i] to the sum}\\
+	\texttt{ } \\\vspace{5pt}
+	
+\end{frame}
+
+\begin{frame}
+	\frametitle{Pseudocode for a combination of Simpson's 1/3 and 3/8 Rules}
+		For the case where $n$ is odd and NOT divisible by 3, we have to apply a combination of Simpson's Rules. Recall the example from last class where we were integrating the data set
+	\begin{table}
+		\begin{tabular}{c| c c c c c c c c}
+			$i$ &0& 1&2&3&4&5&6&7 \\
+			\hline
+			$x_i$& 1.0 &1.1&1.2&1.3&1.4&1.5&1.6&1.7\\
+			$f(x_i)$&1.543&1.669&1.811&1.971&2.151&2.352&2.577&2.828\\			
+		\end{tabular}
+	\end{table}
+	We split up the domain
+	\begin{enumerate}
+		\item Use Simpson's 1/3 rule on the interval [1.0,1.4].
+		\item Use Simpson's 3/8 rule on the interval [1.4, 1.7].
+		\item Add them together.
+	\end{enumerate}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Pseudocode for a combination of Simpson's 1/3 and 3/8 Rules}
+	For the case where $n$ is odd and NOT divisible by 3, we have to apply a combination of Simpson's Rules. Recall the example from last class where we were integrating the data set
+	\begin{table}
+		\begin{tabular}{c| c c c c c c c c}
+			$i$ &0& 1&2&3&4&5&6&7 \\
+			\hline
+			$x_i$& 1.0 &1.1&1.2&1.3&1.4&1.5&1.6&1.7\\
+			$f(x_i)$&1.543&1.669&1.811&1.971&2.151&2.352&2.577&2.828\\			
+		\end{tabular}
+	\end{table}
+	We split up the domain
+	\begin{enumerate}
+		\item Use Simpson's 1/3 rule on the interval [1.0,1.4].
+		\item Use Simpson's 3/8 rule on the interval [1.4, 1.7].
+		\item Add them together.
+	\end{enumerate}
+	Generally speaking,
+	\begin{enumerate}
+		\item Use Simpson's 1/3 rule on the interval [0, n-3].
+		\item Use Simpson's 3/8 rule on the interval [n-3, n].
+		\item Add them together.
+	\end{enumerate}	
+\end{frame}
+
+\begin{frame}
+	\frametitle{Pseudocode for a combination of Simpson's 1/3 and 3/8 Rules}
+	For the case where $n$ is odd and NOT divisible by 3, we have to apply a combination of Simpson's Rules.
+	\begin{enumerate}
+		\item Use Simpson's 1/3 rule on the interval [0, n-3].
+		\item Use Simpson's 3/8 rule on the interval [n-3, n].
+		\item Add them together.
+	\end{enumerate}
+	\vspace{5pt}
+	\texttt{declare function that takes in x[], f[], n}\\
+	\texttt{ }\\
+	\texttt{declare/define h = (x[n]-x[0])/n;}\\
+	\texttt{//start with Simpson's 1/3 rule, leaving the last 3 segments for }\\
+	\texttt{  Simpson's 3/8 rule}\\
+	\texttt{declare/define sum = (h/3)*(f[0]+f[n-3]);}\\
+	\texttt{loop over i = 1,...,n-4 }\\
+	\texttt{\qquad if(i \% 2 == 0)}\\
+	\texttt{\qquad \qquad add 2*h/3*f[i] to sum} \\
+	\texttt{\qquad else}\\
+	\texttt{\qquad \qquad add 4*h/3*f[i] to sum}\\
+	\texttt{ }\\
+	\texttt{//Now we will apply Simpson's 3/8 rule to the last three segments}\\
+	\texttt{add (3*h/8)*(f[n-3]+f[n]) to the sum}\\
+	\texttt{loop over i =n-2,n-1}\\
+	\texttt{\qquad add (3*h/8)*3*f to the sum}\\
+	\texttt{ } 
+\end{frame}
+
+\begin{frame}
+	\frametitle{Let's code it!}
+	We are going to write a function \texttt{DataSimpsons} that takes in two arrays and the number of segments, n, and returns the sum evaluated by one of the three methods above.\vspace{10pt}
+	
+	\texttt{double DataSimpsonsRules(double x[], double f[], double n)}\\
+	\texttt{double h = (x[n]-x[0])/n}\\
+	\texttt{double sum = 0.0} \\
+	\texttt{if (n \% 2 == 0)}\\
+	\texttt{\qquad Code for Case 1.}\\
+	\texttt{if (n \% 3 == 0)}\\
+	\texttt{\qquad Code for Case 2.}\\
+	\texttt{else}\\
+	\texttt{\qquad Code for Case 3.}	
+
+\end{frame}
+
+\begin{frame}
+	\frametitle{Testing this on our problem}
+		\begin{table}
+		\begin{tabular}{c| c c c c c c c c}
+			$i$ &0& 1&2&3&4&5&6&7 \\
+			\hline
+			$x_i$& 1.0 &1.1&1.2&1.3&1.4&1.5&1.6&1.7\\
+			$f(x_i)$&1.543&1.669&1.811&1.971&2.151&2.352&2.577&2.828\\			
+		\end{tabular}
+	\end{table}
+	We need to write our main \\
+	\texttt{int main()}\\
+	\texttt{double x[] = \{1.0, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6,1.7\}}\\
+	\texttt{double f[] = \{ 1.543, 1.669, 1.811, 1.971, 2.151, 2.352, 2.577,2.828} \\
+	\texttt{unsigned int n = sizeof(x) / sizeof(x[0]) - 1}\\
+	\texttt{double sum = DataSimpsonsRules(x, f, n)}\\\vspace{5pt}
+	
+	Note, you don't have to use\\ \texttt{\qquad \qquad unsigned int n = sizeof(x) / sizeof(x[0]) - 1}\\ to define the number of segments, you can hard code it for a small example like this one. We will eventually learn how to import data, so defining it the way I have done here allows for n to be defined based on the length of any array. Meaning, if you have a very long data set, you won't have to count each point to determine how many segments you will have, the computer does that for you!   
+	
+\end{frame}
+
+
+\end{document}

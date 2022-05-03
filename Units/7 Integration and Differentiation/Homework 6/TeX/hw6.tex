@@ -1,0 +1,96 @@
+\documentclass[11pt]{article}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[shortlabels]{enumitem}
+\usepackage{tabu}
+\usepackage{graphicx}
+%\usepackage[bw]{mcode}
+\usepackage[margin=.6in]{geometry}
+\usepackage{tikz}
+\usepackage{float}
+\usepackage{textcomp}
+\usepackage{multicol}
+\addtolength{\topmargin}{.5in}
+\usepackage{fancyhdr}
+\usetikzlibrary{positioning}
+\usepackage{pgfplots}
+\usepackage{enumitem}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt plus 1pt}
+\setlength{\headheight}{20pt}
+\renewcommand{\headrulewidth}{0pt}
+\setlength{\headheight}{30.0pt}
+\newcommand\question[2]{\vspace{.25in}\hrule\textbf{#1: #2}\vspace{.5em}\hrule\vspace{.10in}}
+\renewcommand\part[1]{\vspace{.10in}\textbf{(#1)}}
+\newcommand\enter{\vspace{.50in}}
+\newcommand\algorithm{\vspace{.10in}\textbf{Algorithm:}}
+\newcommand\correctness{\vspace{.10in}\textbf{Correctness: }}
+\newcommand\runtime{\vspace{.10in}\textbf{Running time: }}
+\pagestyle{fancyplain}
+
+\begin{document}\raggedright
+\newcommand\Page{\page  / \lastPage}
+\newcommand\page{1}
+\newcommand\qN[2]{\Large {#1} \small{#2} \normalsize}
+
+% info
+\newcommand\dueDate{\today}
+\newcommand\hwnum{6}
+\newcommand\ExNum{}
+
+\newcommand\lastPage{3}
+
+% set info
+\lhead{\large Homework \hwnum }
+\rhead{\rightHead}
+\chead{\LARGE{Integration and Library Upkeep}}
+\newcommand\rightHead{\large Due Oct 23, 2020}
+
+\question{1}{Update Your Library  (20 pts)}
+By this point in time your library should contain the following routines:
+Your function declarations should be identical to the ones listed below. This includes the \textbf{function name}, the \textbf{number of parameters}, and the\textbf{ order of parameters.} 
+\begin{itemize}
+	\item The Bisection method, \\\texttt{Bisect(double a, double b, double tol, double (*f)(double x))}
+	\item Newton-Raphson method, \\\texttt{NewtonRaphson(double a, double tol, double maxit, double (*f)(double x), double (*df)(double x))}
+	\item Golden-Section Search Method, \\\texttt{GoldenSectionSearch(double xu, double xl, double tol, double (*f)(double x))}
+	\item Parabolic Interpolation, \\\texttt{ParabolicInterp(double x1, double x2, double x3, double tol, double (*f)(double x))}
+	\item The Recursive Trapezoid Rule for functions, \\\texttt{CompositeTrapRule(double a, double b, double n, double avgdf2, double tol, double (*f)(double x))}
+	\item Recursive Simpson's 1/3 Rule for functions, \\\texttt{CompositeSimps13(double a, double b, double n, double avgdf4, double tol, double (*f)(double x))}
+	\item Simpson's Rules for data, \\\texttt{DataSimpsonsRule(double data[], double x[], double n)}
+	\item Trapezoid Rule for data, \\\texttt{DataTrapezoidalRule(vector<double> x, vector<double> fx, int n)}
+	\item Trapezoid Rule for function, non recursive, \\\texttt{TrapezoidRule(double a, double b, int n, double (*f)(double x))}
+	\item 4th order Romberg Integration, \\\texttt{RombergIntegration(double a, double b, double tol, double (*f)(double x))}
+	\item Adaptive Quadrature using Boole's Rule, \\\texttt{AdaptiveQuadrature(double a, double b, double tol, double (*f)(double x))}
+\end{itemize}
+Make sure that these routines work by testing them on the functions we covered in class,but do not submit any code for these tests. We will check them to make sure they are working using unit testing.
+\newpage
+\question{2}{Integrating a Data Set (30 pts)}
+You've just been handed a set of experimental data to integrate, \texttt{xData} and \texttt{fxData}. 
+\begin{enumerate}[(a)]
+	\item Of the methods we've covered during lecture for integrating sets of data, which method would you choose use to integrate this data set? Why? \vspace{2cm}
+	\item Apply the method you chose to the set of data provided with this assignment. Report the integral value (sum).
+\end{enumerate}
+
+\vspace{0.5cm}
+
+\question{3}{Integrating a Function (50 pts)}
+The upward velocity of a rocket can be computed by
+the following formula:
+$$v = u\ln\left(\frac{m_0}{m_0-qt}\right) -gt$$
+where $v$ is the upward velocity, $u =1850 m/s$ is the velocity at which the fuel is expelled relative to the rocket, $m_0 = 160,000 kg$ is the initial mass of the rocket, $q = 2500 kg/s$ is the fuel consumption rate, $g = 9.81 m/s^2$ is the acceleration of gravity, and $t$ is the time. \\\vspace{5pt}
+
+\begin{enumerate}[(a)]
+	\item Report the height of the rocket after 30$s$ using \texttt{RombergIntegration} using a \texttt{tol = 1e-4}. \\\vspace{1cm}
+	\item Report the height of the rocket after 30$s$ using \texttt{AdaptiveQuadrature} using a \texttt{tol = 1e-4}.
+\end{enumerate}
+
+
+\vspace{1cm}
+
+ 
+
+\question{4}{Submission Details}
+\textbf{Only} the function used for Question 3 of this assignment should be defined within your Main.cpp.\\\vspace{5pt}
+Within the main function of your Main.cpp, you should be \textbf{only} be calling \textbf{\texttt{DataSimpsonsRules}} \textbf{OR} \textbf{\texttt{dataTrapezoidalRule}}, \textbf{\texttt{RombergIntegration}}, and \textbf{\texttt{AdaptiveQuadrature}}, with their appropriate parameters and reporting their returned values.\\\vspace{5pt}
+Submit your entire SciProgLib folder as a .zip file.
+
+\end{document}

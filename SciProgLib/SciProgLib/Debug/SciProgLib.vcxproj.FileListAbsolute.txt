@@ -1,0 +1,2 @@
+C:\Users\liamn\OneDrive\Desktop\SciProgLib\Debug\SciProgLib.pdb
+C:\Users\liamn\OneDrive\Desktop\SciProgLib\SciProgLib\Debug\SciProgLib.pdb

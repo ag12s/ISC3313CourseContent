@@ -1,0 +1,3 @@
+Remove Gauss Quadrature, save it for final project. 
+
+Add addaptive quadrature instead.

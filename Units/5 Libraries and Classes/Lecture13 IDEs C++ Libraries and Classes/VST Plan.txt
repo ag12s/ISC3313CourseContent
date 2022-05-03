@@ -1,0 +1,4 @@
+Day 1: Installing Visual Studio (VS) & Using VS on the virtual machine
+Day 2: Using VS - Basics
+
+Assignment - Guided Library set up.

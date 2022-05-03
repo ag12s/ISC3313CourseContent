@@ -1,0 +1,72 @@
+\documentclass[11pt]{article}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{tabu}
+\usepackage{graphicx}
+%\usepackage[bw]{mcode}
+\usepackage[margin=.6in]{geometry}
+\usepackage{tikz}
+\usepackage{float}
+\usepackage{textcomp}
+\usepackage{multicol}
+\addtolength{\topmargin}{.5in}
+\usepackage{fancyhdr}
+\usetikzlibrary{positioning}
+\usepackage{pgfplots}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt plus 1pt}
+\setlength{\headheight}{20pt}
+\renewcommand{\headrulewidth}{0pt}
+\setlength{\headheight}{30.0pt}
+\newcommand\question[2]{\vspace{.25in}\hrule\textbf{#1: #2}\vspace{.5em}\hrule\vspace{.10in}}
+\renewcommand\part[1]{\vspace{.10in}\textbf{(#1)}}
+\newcommand\enter{\vspace{.50in}}
+\newcommand\algorithm{\vspace{.10in}\textbf{Algorithm:}}
+\newcommand\correctness{\vspace{.10in}\textbf{Correctness: }}
+\newcommand\runtime{\vspace{.10in}\textbf{Running time: }}
+\pagestyle{fancyplain}
+
+\begin{document}\raggedright
+\newcommand\Page{\page  / \lastPage}
+\newcommand\page{1}
+\newcommand\qN[2]{\Large {#1} \small{#2} \normalsize}
+
+% info
+\newcommand\dueDate{\today}
+\newcommand\hwnum{4}
+\newcommand\ExNum{}
+
+\newcommand\lastPage{3}
+
+% set info
+\lhead{\large Homework \hwnum }
+\rhead{\rightHead}
+\chead{\LARGE{Adding \texttt{NewtonRaphson} to your Library}}
+\newcommand\rightHead{\large Due Oct 22, 2021}
+
+\question{1}{Newton-Raphson method ( pts)}
+Add your Newton-Raphson function to your library. Things to keep in mind:
+\begin{itemize}
+	\item Name Your function \textbf{NewtonRaphson}
+	\item Use this order for your parameter list:
+	\begin{enumerate}
+		\item initial guess, \textbf{x}
+		\item tolerance, \textbf{tol}
+		\item maximum iterations, \textbf{Maxit}
+		\item function, \textbf{f}
+		\item function derivative, \textbf{df} 
+	\end{enumerate}
+	\item The Newton-Raphson declaration belongs in the RootFinding class with Bisect.
+	\item The Newton-Raphson code belongs in the same .cpp file as the Bisect code.  
+	\item Call NewtonRaphson the same way you called Bisect in the \texttt{main()}
+	\item You will need to pass in pointers to the functions f and df. Define df in the same manner as f in the .cpp file containing the \texttt{main()}.
+\end{itemize}
+
+\vspace{1cm}
+
+\question{2}{Test your library ( pts)}
+Test your Newton-Raphson code on the function covered in slide 4 of lecture 12. Report the value of the root. \vspace{1cm}
+
+\question{Submission Details}{}
+Submit a \textbf{.zip} file of your visual studio project to Canvas.\\\vspace{0.5cm}
+
+\end{document}

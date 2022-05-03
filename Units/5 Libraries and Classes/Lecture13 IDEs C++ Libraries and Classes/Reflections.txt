@@ -1,0 +1,5 @@
+Get rid of the ODE comment on slide 4. Outside the scope of their prereqs.
+
+Name the library something else.
+
+It might be better to write the library in lecture by how many students struggled with it. 
