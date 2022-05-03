@@ -29,4 +29,4 @@ This course was developed for undergradutate students in the Department of Scien
    <p></p>
  </details>
  
- Numerical methods lectures were created using Chapra's _Applied Numerical Methods with Matlab_. 
+ Numerical methods lectures were created using Chapra's _Applied Numerical Methods with Matlab_. Content contained in these folders was implemented in the fall of 2020 and 2021. I have included my personal reflections with the lectures. 
